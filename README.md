@@ -1,6 +1,13 @@
 **Preview:**
 
-Coming Soon
+- Car Fires/Arson [Streamable](https://streamable.com/03nvrv)
+- Break Cutting [Streamable](https://streamable.com/8jn9pg)
+- Car Bombs [Streamable](https://streamable.com/keixgx)
+- Door Drilling/Removing [Streamable](https://streamable.com/bou6nk)
+- Fuel Tank Cutting [Streamable](https://streamable.com/oa2q4a)
+- Tire Slashing [Streamable](https://streamable.com/tp68wr)
+- Wheel Removal [Streamable](https://streamable.com/g22wh3)
+- Wheel Sabotaging [Streamable](https://streamable.com/yer384)
   
 **Download:**
 - Access the full script package on [GitHub](https://github.com/Virgildev/v-VehicleSabotage).
