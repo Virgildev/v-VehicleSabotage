@@ -13,11 +13,13 @@ function plantCarBomb(vehicle)
     local bombModel = `ch_prop_ch_ld_bomb_01a`
     loadModel(bombModel)
 
-    local bombPos = vector3(vehiclePos.x, vehiclePos.y, vehiclePos.z - 0.3)
-    local bombRot = vector3(0.0, 90.0, 0.0)
-
+    local bombPos = vector3(vehiclePos.x, vehiclePos.y, vehiclePos.z - 1.8)
+    local bombRot = vector3(0.0, 90.0, 0.0)  -- Rotating 90 degrees along the Z-axis
+    
     local bomb = CreateObject(bombModel, bombPos.x, bombPos.y, bombPos.z, true, true, true)
-    AttachEntityToEntity(bomb, vehicle, 0, 0.0, -0.8, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
+    
+    -- Adjusting the attachment parameters for rotation
+    AttachEntityToEntity(bomb, vehicle, 0, 0.0, -0.8, 0.1, 270.0, 90.0, 0.0, false, false, false, false, 2, true)    
 
     lib.notify({
         description = Lang.Lang['car_bomb_planted'],
@@ -83,7 +85,7 @@ function useBombKit()
                 prop = {
                     model = `prop_c4_final_green`,
                     pos = vec3(0.0, 0.0, 0.0),
-                    rot = vec3(0.0, 0.0, 0.0)
+                    rot = vec3(0.0, 0.0, 90.0)
                 },
             }) then
                 TriggerServerEvent('v-vehiclesab:carBombitem')
@@ -98,16 +100,10 @@ function useBombKit()
                     end
                 end)
             else
-                lib.notify({
-                    description = Lang.Lang['bomb_planting_cancelled'],
-                    type = 'error'
-                })
+                detonateBomb(vehicle)
             end
         else
-            lib.notify({
-                description = Lang.Lang['skill_check_failed'],
-                type = 'error'
-            })
+            detonateBomb(vehicle)
         end
     else
         lib.notify({
@@ -127,6 +123,7 @@ function disarmCarBomb(bomb)
                 position = 'bottom',
                 label = Lang.Lang['bomb_disarm_progress'],
                 canCancel = true,
+                items = Config.CarBombDisarmItem,
                 disable = {sprint = true, car = true},
                 anim = {
                     dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',

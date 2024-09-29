@@ -6,6 +6,7 @@ local function useDrill(vehicle)
     local success = lib.skillCheck(Config.FuelSkillcheck.difficulty, Config.FuelSkillcheck.keys)
 
     if success then
+        TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 15.0, 'impactdrill', 1.0)
         local successMessage = Lang.Lang['drill_success']
         lib.progressCircle({
             duration = Config.FuelProgress,
