@@ -1,0 +1,69 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
+exports('break_cutting_tool', function(data, slot)
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+
+    exports.ox_inventory:useItem(data, function(success)
+        if success then
+            local vehicle = QBCore.Functions.GetClosestVehicle(playerCoords)
+            local distance = #(GetEntityCoords(vehicle) - playerCoords)
+
+            if vehicle ~= 0 and distance <= 3.0 then
+
+                local skillCheckSuccess = lib.skillCheck(Config.BreakCuttingSkillcheck.difficulty, Config.BreakCuttingSkillcheck.keys)
+
+                if skillCheckSuccess then
+                    TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 15.0, 'impactdrill', 1.0)
+                    local progressSuccess = lib.progressCircle({
+                        duration = Config.BreakCuttingProgress,
+                        label = Lang.Lang['cutting_breaks_progress'],
+                        position = 'bottom',
+                        useWhileDead = false,
+                        canCancel = true,
+                        anim = {
+                            dict = 'anim@heists@fleeca_bank@drilling',
+                            clip = 'drill_straight_end',                 
+                        },
+                        prop = {
+                            model = `prop_tool_consaw`, 
+                            pos = vec3(0.04, 0.06, 0.20), --l/r, foward/back, up
+                            rot = vec3(15.0, 0.0, 270.0)
+                        },  
+                        disable = {
+                            move = true,
+                            car = true,
+                            combat = true,
+                        }
+                    })
+
+                    if progressSuccess then
+                        local vehicleNetId = NetworkGetNetworkIdFromEntity(vehicle)
+                        TriggerServerEvent('v-vehiclesab:cuttingComplete', vehicleNetId)
+                    else
+                        lib.notify({type = 'error', description = Lang.Lang['cutting_canceled']})
+                    end
+                else
+                    lib.notify({type = 'error', description = Lang.Lang['skill_check_failed']})
+                end
+            else
+                lib.notify({type = 'error', description = Lang.Lang['no_vehicle_nearby']})
+            end
+        else
+            lib.notify({type = 'error', description = Lang.Lang['failed_to_use_tool']})
+        end
+    end)
+end)
+
+RegisterNetEvent('v-vehiclesab:disableBrakes', function(vehicleNetId)
+    local vehicle = NetworkGetEntityFromNetworkId(vehicleNetId)
+    
+    if DoesEntityExist(vehicle) then
+        SetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fBrakeForce', -0.01)
+        SetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fHandBrakeForce', -0.01)
+
+        lib.notify({type = 'inform', description = Lang.Lang['brakes_cut']})
+    else
+        lib.notify({type = 'error', description = Lang.Lang['no_vehicle_found']})
+    end
+end)
