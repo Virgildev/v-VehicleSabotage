@@ -1,5 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local arsonCooldowns = {}
+
 function loadModel(model)
     RequestModel(model)
     while not HasModelLoaded(model) do
@@ -44,6 +46,20 @@ function getClosestVehicle()
 end
 
 function useArsonKit()
+    local playerId = QBCore.Functions.GetPlayerData().citizenid
+
+    local currentTime = GetGameTimer()
+    if arsonCooldowns[playerId] and (currentTime - arsonCooldowns[playerId]) < (Config.ArsonCooldown * 1000) then
+        local remainingTime = math.floor((Config.ArsonCooldown * 1000 - (currentTime - arsonCooldowns[playerId])) / 1000)
+        lib.notify({
+            description = Lang.Lang['must_wait'] .. remainingTime .. Lang.Lang['must_wait_2'],
+            type = 'error'
+        })
+        return
+    end
+
+    arsonCooldowns[playerId] = currentTime
+
     local vehicle = getClosestVehicle()
     local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
@@ -75,7 +91,7 @@ function useArsonKit()
         local progressSuccess = lib.progressCircle({
             duration = Config.ArsonProgress,
             position = 'bottom',
-            label = 'Placing Gasoline Canister...',
+            label = Lang.Lang['placing_gasolinecanister_progress'],
             canCancel = true,
             disable = {sprint = true, car = true},
             anim = {

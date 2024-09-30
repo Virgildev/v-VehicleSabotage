@@ -1,6 +1,17 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local lastCuttingTime = 0
+
 exports('break_cutting_tool', function(data, slot)
+    local currentTime = GetGameTimer()
+
+    if currentTime - lastCuttingTime < Config.BreakCuttingCooldown then
+        lib.notify({type = 'error', description = Lang.Lang['cooldown_active']})
+        return
+    end
+
+    lastCuttingTime = currentTime
+
     local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
 

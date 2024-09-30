@@ -1,5 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local lastBombUse = 0
+
 function loadModel(model)
     RequestModel(model)
     while not HasModelLoaded(model) do
@@ -14,11 +16,10 @@ function plantCarBomb(vehicle)
     loadModel(bombModel)
 
     local bombPos = vector3(vehiclePos.x, vehiclePos.y, vehiclePos.z - 1.8)
-    local bombRot = vector3(0.0, 90.0, 0.0)  -- Rotating 90 degrees along the Z-axis
+    local bombRot = vector3(0.0, 90.0, 0.0)
     
     local bomb = CreateObject(bombModel, bombPos.x, bombPos.y, bombPos.z, true, true, true)
-    
-    -- Adjusting the attachment parameters for rotation
+
     AttachEntityToEntity(bomb, vehicle, 0, 0.0, -0.8, 0.1, 270.0, 90.0, 0.0, false, false, false, false, 2, true)    
 
     lib.notify({
@@ -64,6 +65,16 @@ function onEngineStart(vehicle, bomb)
 end
 
 function useBombKit()
+    local currentTime = GetGameTimer()
+    if currentTime - lastBombUse < Config.CarBombCooldown then
+        local remainingCooldown = math.ceil((Config.CarBombCooldown - (currentTime - lastBombUse)) / 1000)
+        lib.notify({
+            description = Lang.Lang['cooldown_active'],
+            type = 'error'
+        })
+        return
+    end
+
     local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
     local vehicle = QBCore.Functions.GetClosestVehicle(playerCoords)
@@ -88,6 +99,8 @@ function useBombKit()
                     rot = vec3(0.0, 0.0, 90.0)
                 },
             }) then
+                lastBombUse = currentTime
+
                 TriggerServerEvent('v-vehiclesab:carBombitem')
                 local bomb = plantCarBomb(vehicle)
                 CreateThread(function()

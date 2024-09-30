@@ -49,7 +49,11 @@ Lang.Lang = {
     ['remove_car_door_target'] = "Remove Car Door",
     ['remove_car_hood_target'] = "Remove Car Hood",
     ['remove_car_trunk_target'] = "Remove Car Trunk",
-    ['pickup_tire'] = "Pickup Tire"
+    ['pickup_tire'] = "Pickup Tire",
+    ['placing_gasolinecanister_progress'] = "Placing Gasoline Canister...",
+    ['must_wait'] = "You Must wait ",
+    ['must_wait_2'] = "seconds before using the arson kit again.",
+    ['cooldown_active'] = "You must wait before doing it again..."
 }
 
 --German!!!:
@@ -99,7 +103,11 @@ Lang.Lang = {
     ['remove_car_door_target'] = "Autotür Entfernen",
     ['remove_car_hood_target'] = "Motorhaube Entfernen",
     ['remove_car_trunk_target'] = "Kofferraum Entfernen",
-    ['pickup_tire'] = "Reifen Aufheben"
+    ['pickup_tire'] = "Reifen Aufheben",
+    ['placing_gasolinecanister_progress'] = "Benzinkanister platzieren...",
+    ['must_wait'] = "Sie müssen warten",
+    ['must_wait_2'] = "Sekunden, bevor Sie das Brandstiftungsset erneut verwenden.",
+    ['cooldown_active'] = "Sie müssen warten, bevor Sie es erneut tun..."
 }
 ]]
 
@@ -150,6 +158,10 @@ Lang.Lang = {
     ['remove_car_door_target'] = "Retirer la porte de la voiture",
     ['remove_car_hood_target'] = "Retirer le capot de la voiture",
     ['remove_car_trunk_target'] = "Retirer le coffre de la voiture",
-    ['pickup_tire'] = "Ramasser le pneu"
+    ['pickup_tire'] = "Ramasser le pneu",
+    ['placing_gasolinecanister_progress'] = "Placement du bidon d'essence...",
+    ['must_wait'] = "Vous devez attendre ",
+    ['must_wait_2'] = "secondes avant d'utiliser à nouveau le kit anti-incendie.",
+    ['cooldown_active'] = "Vous devez attendre avant de recommencer..."
 }
 ]]

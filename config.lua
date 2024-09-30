@@ -22,6 +22,11 @@ Config.FuelSkillcheck = {
     keys = {'w', 'a', 's', 'd'} -- skill check keys, add or remove
 }
 
+Config.SabotageCooldown = 300  -- Cooldown time in seconds (example: 5 minutes)
+Config.MaxSabotageDistance = 5.0 -- Maximum distance from the vehicle to sabotage
+Config.ExplosionChance = 50  -- Chance of an explosion (percentage)
+Config.ExplosionDelay = 2  -- Time before explosion in seconds
+
 --[[
 ████████╗██╗██████╗ ███████╗    ███████╗██╗      █████╗ ███████╗██╗  ██╗██╗███╗   ██╗ ██████╗ 
 ╚══██╔══╝██║██╔══██╗██╔════╝    ██╔════╝██║     ██╔══██╗██╔════╝██║  ██║██║████╗  ██║██╔════╝ 
@@ -58,6 +63,8 @@ Config.ArsonSkillcheck = {
 
 Config.ArsonProgress = 5000 -- Progress bar duration to plant the bomb
 
+Config.ArsonCooldown = 600 -- Time between each 
+
 --[[
 ██████╗ ██████╗ ███████╗ █████╗ ██╗  ██╗     ██████╗██╗   ██╗████████╗████████╗██╗███╗   ██╗ ██████╗ 
 ██╔══██╗██╔══██╗██╔════╝██╔══██╗██║ ██╔╝    ██╔════╝██║   ██║╚══██╔══╝╚══██╔══╝██║████╗  ██║██╔════╝ 
@@ -73,6 +80,8 @@ Config.BreakCuttingSkillcheck = {
 }
 
 Config.BreakCuttingProgress = 5000 -- Progress bar duration to cut the breaks
+
+Config.BreakCuttingCooldown = 60000 -- in milliseconds!! time between each break cut
 
 --[[
  ██████╗ █████╗ ██████╗     ██████╗  ██████╗ ███╗   ███╗██████╗ 
@@ -102,6 +111,8 @@ Config.CarBombProgress = 5000 -- Progress bar duration to place the car bomb
 Config.CarBombDisarmProgress = 5000 -- Progress bar duration to defuse the bomb
 
 Config.CarBombDisarmItem = 'drill' -- item required to disable the bomb
+
+Config.CarBombCooldown = 300000 -- milliseconds!! current 5 min, cooldown between each car bomb placement
 
 --[[
 ██████╗  ██████╗  ██████╗ ██████╗     ██████╗ ███████╗███╗   ███╗ ██████╗ ██╗   ██╗ █████╗ ██╗     
