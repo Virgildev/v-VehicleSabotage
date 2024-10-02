@@ -53,7 +53,10 @@ Lang.Lang = {
     ['placing_gasolinecanister_progress'] = "Placing Gasoline Canister...",
     ['must_wait'] = "You Must wait ",
     ['must_wait_2'] = "seconds before using the arson kit again.",
-    ['cooldown_active'] = "You must wait before doing it again..."
+    ['cooldown_active'] = "You must wait before doing it again...",
+    ['disarm_bomb_target'] = "Disarm Car Bomb",
+    ['planting_carbomb_progress'] = "Planting Car Bomb...",
+    ['pickup_tire_target'] = "Pickup Tire",
 }
 
 --German!!!:
@@ -108,6 +111,9 @@ Lang.Lang = {
     ['must_wait'] = "Sie müssen warten",
     ['must_wait_2'] = "Sekunden, bevor Sie das Brandstiftungsset erneut verwenden.",
     ['cooldown_active'] = "Sie müssen warten, bevor Sie es erneut tun..."
+    ['disarm_bomb_target'] = "Autobombe entschärfen",
+    ['planting_carbomb_progress'] = "Autobombe platzieren ...",
+    ['pickup_tire_target'] = "Pickup-Reifen",
 }
 ]]
 
@@ -163,5 +169,8 @@ Lang.Lang = {
     ['must_wait'] = "Vous devez attendre ",
     ['must_wait_2'] = "secondes avant d'utiliser à nouveau le kit anti-incendie.",
     ['cooldown_active'] = "Vous devez attendre avant de recommencer..."
+    ['disarm_bomb_target'] = "Désarmer la voiture piégée",
+    ['planting_carbomb_progress'] = "Planification d'une voiture piégée...",
+    ['pickup_tire_target'] = "Pneu de pick-up",
 }
 ]]

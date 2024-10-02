@@ -25,7 +25,6 @@ exports('break_cutting_tool', function(data, slot)
                 local skillCheckSuccess = lib.skillCheck(Config.BreakCuttingSkillcheck.difficulty, Config.BreakCuttingSkillcheck.keys)
 
                 if skillCheckSuccess then
-                    TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 15.0, 'impactdrill', 1.0)
                     local progressSuccess = lib.progressCircle({
                         duration = Config.BreakCuttingProgress,
                         label = Lang.Lang['cutting_breaks_progress'],
@@ -66,15 +65,26 @@ exports('break_cutting_tool', function(data, slot)
     end)
 end)
 
+local lastBrakeCutTime = 0
+
 RegisterNetEvent('v-vehiclesab:disableBrakes', function(vehicleNetId)
     local vehicle = NetworkGetEntityFromNetworkId(vehicleNetId)
-    
-    if DoesEntityExist(vehicle) then
-        SetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fBrakeForce', -0.01)
-        SetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fHandBrakeForce', -0.01)
+    local currentTime = GetGameTimer()
 
-        lib.notify({type = 'inform', description = Lang.Lang['brakes_cut']})
-    else
+    if not DoesEntityExist(vehicle) then
         lib.notify({type = 'error', description = Lang.Lang['no_vehicle_found']})
+        return
     end
+
+    if currentTime - lastBrakeCutTime < Config.BreakCuttingCooldown then
+        local remainingTime = math.ceil((Config.BreakCuttingCooldown - (currentTime - lastBrakeCutTime)) / 1000)
+        lib.notify({type = 'error', description = string.format(Lang.Lang['cooldown_active'], remainingTime)})
+        return
+    end
+
+    SetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fBrakeForce', -0.01)
+    SetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fHandBrakeForce', -0.01)
+
+    lib.notify({type = 'inform', description = Lang.Lang['brakes_cut']})
+    lastBrakeCutTime = currentTime
 end)

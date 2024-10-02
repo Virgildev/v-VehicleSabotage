@@ -150,10 +150,18 @@ Config.WheelLoosenSkillcheck = {
 
 Config.WheelLoosenProgress = 5000 -- Progress bar duration to loosen a wheel
 
-Config.WheelItem = 'steel' -- item given when picking up a wheel !!!(also used in below second)
-Config.WheelItemAmount = 5 --can easily be a math.random to get a number between a range "math.random(5,10)" !!!(also used in below second)
+Config.WheelItem = 'steel' -- item given when picking up a wheel !!!(also used in below section)
+Config.WheelItemAmount = 5 --can easily be a math.random to get a number between a range "math.random(5,10)" !!!(also used in below section)
 
 Config.WheelFallOffSpeed = 70 -- The speed in MPH required to be able to lose the tire
+
+Config.WheelFallOffSpeed = 60 -- Time in milliseconds before a player can use the event again (5 minutes current)
+
+Config.TireCooldown = 60000 -- Cooldown between each tire removal (success or fail) !!!(also used in below section)
+
+Config.TireGiveItemCoolDown = 60000 -- The cooldown between each time the player can be given the items from the server event !!!(also used in below section)
+
+Config.WheelProp = 'prop_stockade_wheel_flat' -- the prop of the wheel to target
 
 --[[
 ██╗    ██╗██╗  ██╗███████╗███████╗██╗         ██████╗ ███████╗███╗   ███╗ ██████╗ ██╗   ██╗ █████╗ ██╗     
